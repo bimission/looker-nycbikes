@@ -113,6 +113,15 @@ view: citibike_trips {
     sql: ${TABLE}.tripduration ;;
   }
 
+  dimension: tripdistance {
+    type:  number
+    description: "Traveled distance"
+    sql:  st_distance(
+        st_geogpoint(${end_station_longitude}, ${start_station_latitude}),
+        st_geogpoint(${end_station_longitude},   ${end_station_latitude})
+      ) ;;
+  }
+
   dimension: usertype {
     type: string
     description: "User Type (Customer = 24-hour pass or 7-day pass user, Subscriber = Annual Member)"
