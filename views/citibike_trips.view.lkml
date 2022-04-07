@@ -107,25 +107,28 @@ view: citibike_trips {
     sql: ${TABLE}.stoptime ;;
   }
 
+
+
+
+  dimension: usertype {
+    type: string
+    description: "User Type (Customer = 24-hour pass or 7-day pass user, Subscriber = Annual Member)"
+    sql: ${TABLE}.usertype ;;
+  }
+
   dimension: tripduration {
     type: number
     description: "Trip Duration (in seconds)"
     sql: ${TABLE}.tripduration ;;
   }
 
-  dimension: tripdistance {
+  measure: tripdistance {
     type:  number
     description: "Traveled distance"
-    sql:  st_distance(
+    sql:  round(st_distance(
         st_geogpoint(${end_station_longitude}, ${start_station_latitude}),
         st_geogpoint(${end_station_longitude},   ${end_station_latitude})
-      ) ;;
-  }
-
-  dimension: usertype {
-    type: string
-    description: "User Type (Customer = 24-hour pass or 7-day pass user, Subscriber = Annual Member)"
-    sql: ${TABLE}.usertype ;;
+      ),2) ;;
   }
 
   measure: count {
