@@ -122,7 +122,7 @@ view: citibike_trips {
     sql: ${TABLE}.tripduration ;;
   }
 
-  measure: tripdistance {
+  dimension: tripdistance {
     type:  number
     description: "Traveled distance"
     sql:  round(st_distance(
